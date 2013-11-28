@@ -136,13 +136,13 @@
         
         // The key can be anything you wish to identify your notifications with.
         NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"kCancel"];
-        
-        UILocalNotification *localNotif = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-        [[UIApplication sharedApplication] cancelLocalNotification:localNotif];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"kCancel"];
-        
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
+        if (data) {
+            UILocalNotification *localNotif = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            [[UIApplication sharedApplication] cancelLocalNotification:localNotif];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"kCancel"];
+            
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        }
     }
 }
 
